@@ -50,4 +50,18 @@ describe("RotateMatrixPage", () => {
       expect(screen.getByText(value)).toBeInTheDocument();
     });
   });
+
+  it("should show error if size of matrix is less than 2", async () => {
+    render(<RotateMatrixPage />);
+    const user = userEvent.setup();
+
+    const sizeInput = screen.getByLabelText(/tamaño/i);
+    const createButton = screen.getByRole("button", { name: /crear matriz/i });
+
+    await user.clear(sizeInput);
+    await user.type(sizeInput, "0");
+    await user.click(createButton);
+
+    expect(screen.getByText(/El tamaño de la matriz debe ser un valor entero y mayor igual a 2/i)).toBeInTheDocument();
+  });
 });

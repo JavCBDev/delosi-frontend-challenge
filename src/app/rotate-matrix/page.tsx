@@ -11,8 +11,8 @@ export default function RotateMatrix() {
   const [rotatedMatrix, setRotatedMatrix] = useState<number[][] | null>(null)
 
   const createMatrix = () => {
-    if(matrixSize <= 0 || matrixSize % 1 !== 0){
-      setError('El tamaño de la matriz debe ser un valor entero y mayor a 0');
+    if(matrixSize <= 1 || matrixSize % 1 !== 0){
+      setError('El tamaño de la matriz debe ser un valor entero y mayor igual a 2');
       return;
     }
     setError(null);
@@ -75,7 +75,7 @@ export default function RotateMatrix() {
       <section>
         <div className="flex items-center gap-2 mb-4">
           <label htmlFor="matrixSize">Tamaño de la matriz (NxN):</label>
-          <input type="number" min={1} name="matrixSize" id="matrixSize" className="border rounded w-16 px-2 py-1" value={matrixSize} onChange={e => setMatrixSize(Number(e.target.value))}/>
+          <input type="number" min={2} name="matrixSize" id="matrixSize" className="border rounded w-16 px-2 py-1" value={matrixSize} onChange={e => setMatrixSize(Number(e.target.value))}/>
           <button className="bg-blue-500 text-white rounded cursor-pointer px-3 py-1 hover:bg-blue-600" onClick={createMatrix}>Crear Matriz</button>
         </div>
         { matrix.length > 0 && !error && (
@@ -92,7 +92,7 @@ export default function RotateMatrix() {
         { error && <span className="text-red-500 font-bold">{error}</span>}
         { matrix.length > 0 && !error && <button className="bg-green-500 text-white px-4 py-2 mb-4 rounded hover:bg-green-600 cursor-pointer" onClick={handleRotate}>Rotar Matriz</button>}
 
-        {rotatedMatrix && (
+        {rotatedMatrix && !error && (
           <div className="mb-4">
             <h2 className="text-xl font-semibold mb-2">Matriz Rotada 90º (anti-horario)</h2>
             {rotatedMatrix.map((row, i) => (
