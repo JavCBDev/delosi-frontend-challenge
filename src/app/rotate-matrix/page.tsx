@@ -2,6 +2,7 @@
 
 import Head from "next/head";
 import { useState } from "react";
+import { rotateSquareMatrix } from "@/lib/rotateSquareMatrix";
 
 export default function RotateMatrix() {
 
@@ -47,19 +48,8 @@ export default function RotateMatrix() {
     }
 
     setError(null);
-    const rotatedMatrix = rotateMatrix(matrix);
+    const rotatedMatrix = rotateSquareMatrix(matrix);
     setRotatedMatrix(rotatedMatrix);
-  }
-
-  const rotateMatrix = (matrix: number[][]): number[][] => {
-    const N = matrix.length;
-    const rotated: number[][] = Array.from({ length: N }, () => Array(N).fill(0));
-    for (let i = 0; i < N; i++) {
-      for (let j = 0; j < N; j++) {
-        rotated[N - j - 1][i] = matrix[i][j];
-      }
-    }
-    return rotated;
   }
 
   return (
